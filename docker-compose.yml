@@ -1,0 +1,85 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-practice_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@db:5432/practice_db}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PYTHON_WORKER_URL=http://python-worker:5000
+      - JAVASCRIPT_WORKER_URL=http://javascript-worker:5000
+      - CPP_WORKER_URL=http://cpp-worker:5000
+      - REACT_WORKER_URL=http://react-worker:5000
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+
+  python-worker:
+    build: ./workers/python-worker
+    ports:
+      - "5001:5000"
+    networks:
+      - default
+      - worker_isolated
+
+  javascript-worker:
+    build: ./workers/javascript-worker
+    ports:
+      - "5002:5000"
+    networks:
+      - default
+      - worker_isolated
+
+  cpp-worker:
+    build: ./workers/cpp-worker
+    ports:
+      - "5003:5000"
+    networks:
+      - default
+      - worker_isolated
+
+  react-worker:
+    build: ./workers/react-worker
+    ports:
+      - "5004:5000"
+    networks:
+      - default
+      - worker_isolated
+
+  frontend:
+    build: ./frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+
+networks:
+  worker_isolated:
+    internal: true
+
+volumes:
+  postgres_data:
