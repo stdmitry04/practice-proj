@@ -78,13 +78,13 @@ function PracticeContent() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gray-950">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-4 py-3">
+      <header className="bg-gray-900 border-b border-gray-700 px-4 py-3">
         <div className="flex items-center gap-4">
           <button
             onClick={handleBackHome}
-            className="text-gray-600 hover:text-gray-900"
+            className="text-gray-400 hover:text-gray-100"
           >
             ← Back
           </button>
@@ -124,14 +124,14 @@ function PracticeContent() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex overflow-hidden">
+      <main className="flex-1 flex min-h-0">
         {/* Left Panel - Task */}
-        <div className="w-2/5 border-r border-gray-200 overflow-auto bg-white">
+        <div className="w-2/5 border-r border-gray-700 overflow-y-auto min-h-0 bg-gray-900">
           <TaskPanel />
         </div>
 
         {/* Right Panel - Editor */}
-        <div className="w-3/5 flex flex-col overflow-hidden">
+        <div className="w-3/5 flex flex-col min-h-0">
           <CodeEditor />
         </div>
       </main>

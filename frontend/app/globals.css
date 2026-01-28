@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 249, 250, 251;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 243, 244, 246;
+  --background-start-rgb: 3, 7, 18;
+  --background-end-rgb: 17, 24, 39;
 }
 
 body {
@@ -37,7 +37,8 @@ body {
 }
 
 .prose code {
-  background-color: #f1f5f9;
+  background-color: #374151;
+  color: #e5e7eb;
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
   font-size: 0.875em;

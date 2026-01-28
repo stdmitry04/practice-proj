@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import languages, topics, exercises
+from app.routers import languages, topics, exercises, roadmap
 
 app = FastAPI(
     title="Code Practice Platform API",
@@ -20,6 +20,7 @@ app.add_middleware(
 app.include_router(languages.router, prefix="/api/languages", tags=["languages"])
 app.include_router(topics.router, prefix="/api/topics", tags=["topics"])
 app.include_router(exercises.router, prefix="/api/exercises", tags=["exercises"])
+app.include_router(roadmap.router, prefix="/api/roadmap", tags=["roadmap"])
 
 
 @app.get("/api/health")

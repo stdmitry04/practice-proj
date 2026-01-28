@@ -12,3 +12,4 @@ class Language(BaseModel):
     icon = Column(String(50), nullable=True)
 
     topics = relationship("Topic", back_populates="language", cascade="all, delete-orphan")
+    roadmap_nodes = relationship("RoadmapNode", back_populates="language", cascade="all, delete-orphan")

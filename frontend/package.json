@@ -16,7 +16,8 @@
     "axios": "^1.6.5",
     "zustand": "^4.4.7",
     "react-markdown": "^9.0.1",
-    "clsx": "^2.1.0"
+    "clsx": "^2.1.0",
+    "reactflow": "^11.10.1"
   },
   "devDependencies": {
     "@types/node": "^20.10.6",

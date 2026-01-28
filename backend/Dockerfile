@@ -15,5 +15,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Run migrations and start server
-CMD ["sh", "-c", "alembic upgrade head && python seed_data.py && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]
+# Run migrations, seed data, and start server
+CMD ["sh", "-c", "alembic upgrade head && python seed_data.py && python seed_roadmap.py && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"]

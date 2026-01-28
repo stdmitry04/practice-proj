@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 import Editor, { OnMount } from '@monaco-editor/react'
 import { usePracticeStore } from '@/stores/practiceStore'
 
@@ -13,6 +13,7 @@ const LANGUAGE_MAP: Record<string, string> = {
 
 export function CodeEditor() {
   const editorRef = useRef<any>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const { selectedLanguage, currentExercise, code, setCode } = usePracticeStore()
 
   const handleEditorMount: OnMount = (editor) => {
@@ -23,11 +24,27 @@ export function CodeEditor() {
     setCode(value || '')
   }
 
+  // Handle mouse enter/leave to toggle body scroll behavior
+  const handleMouseEnter = useCallback(() => {
+    document.body.style.overflow = 'auto'
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    document.body.style.overflow = ''
+  }, [])
+
   useEffect(() => {
     if (editorRef.current && currentExercise) {
       editorRef.current.setValue(currentExercise.template_code)
     }
   }, [currentExercise])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [])
 
   const language = selectedLanguage
     ? LANGUAGE_MAP[selectedLanguage.slug] || 'plaintext'
@@ -45,7 +62,12 @@ export function CodeEditor() {
   }
 
   return (
-    <div className="h-full flex flex-col">
+    <div
+      ref={containerRef}
+      className="h-full flex flex-col"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="bg-slate-800 px-4 py-2 text-sm text-slate-300 flex items-center justify-between">
         <span>Editor - {selectedLanguage?.name || 'Unknown'}</span>
         <span className="text-xs text-slate-500">

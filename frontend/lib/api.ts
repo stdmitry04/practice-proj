@@ -1,5 +1,13 @@
 import axios from 'axios'
 import { Language, Topic, Exercise, SubmitResult } from '@/types'
+import {
+  RoadmapNodeWithProgress,
+  RoadmapProblem,
+  RoadmapProblemSummary,
+  Difficulty,
+  NodeProgress,
+  SubmitResult as RoadmapSubmitResult,
+} from '@/types/roadmap'
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api'
 
@@ -35,6 +43,8 @@ export const api = {
   async generateExercise(topicId: string): Promise<Exercise> {
     const response = await client.post('/exercises/generate', {
       topic_id: topicId,
+    }, {
+      timeout: 120000, // 2 minutes for AI generation
     })
     return response.data
   },
@@ -48,6 +58,52 @@ export const api = {
     const response = await client.post(`/exercises/${exerciseId}/submit`, {
       code,
     })
+    return response.data
+  },
+
+  // Roadmap API
+  async getLanguageRoadmap(languageId: string): Promise<RoadmapNodeWithProgress[]> {
+    const response = await client.get(`/roadmap/languages/${languageId}/roadmap`)
+    return response.data
+  },
+
+  async getRoadmapNode(nodeId: string): Promise<RoadmapNodeWithProgress> {
+    const response = await client.get(`/roadmap/nodes/${nodeId}`)
+    return response.data
+  },
+
+  async getNodeProblems(nodeId: string): Promise<RoadmapProblemSummary[]> {
+    const response = await client.get(`/roadmap/nodes/${nodeId}/problems`)
+    return response.data
+  },
+
+  async generateProblem(nodeId: string, difficulty: Difficulty): Promise<RoadmapProblem> {
+    const response = await client.post(`/roadmap/nodes/${nodeId}/generate`, {
+      difficulty,
+    }, {
+      timeout: 120000, // 2 minutes for AI generation
+    })
+    return response.data
+  },
+
+  async getProblem(problemId: string): Promise<RoadmapProblem> {
+    const response = await client.get(`/roadmap/problems/${problemId}`)
+    return response.data
+  },
+
+  async deleteProblem(problemId: string): Promise<void> {
+    await client.delete(`/roadmap/problems/${problemId}`)
+  },
+
+  async submitRoadmapProblem(problemId: string, code: string): Promise<RoadmapSubmitResult> {
+    const response = await client.post(`/roadmap/problems/${problemId}/submit`, {
+      code,
+    })
+    return response.data
+  },
+
+  async getNodeProgress(nodeId: string): Promise<NodeProgress> {
+    const response = await client.get(`/roadmap/nodes/${nodeId}/progress`)
     return response.data
   },
 }
