@@ -4,6 +4,7 @@ import {
   RoadmapProblem,
   RoadmapProblemSummary,
   Difficulty,
+  Level,
   SubmitResult,
 } from '@/types/roadmap'
 
@@ -16,6 +17,7 @@ interface RoadmapState {
   problems: RoadmapProblemSummary[]
   currentProblem: RoadmapProblem | null
   selectedDifficulty: Difficulty
+  selectedLevel: Level
 
   // Code editor state
   code: string
@@ -37,6 +39,7 @@ interface RoadmapState {
   setProblems: (problems: RoadmapProblemSummary[]) => void
   setCurrentProblem: (problem: RoadmapProblem | null) => void
   setSelectedDifficulty: (difficulty: Difficulty) => void
+  setSelectedLevel: (level: Level) => void
   setCode: (code: string) => void
   setSubmitResult: (result: SubmitResult | null) => void
   setShowSolution: (show: boolean) => void
@@ -58,6 +61,7 @@ const initialState = {
   problems: [],
   currentProblem: null,
   selectedDifficulty: 'easy' as Difficulty,
+  selectedLevel: 'beginner' as Level,
   code: '',
   submitResult: null,
   showSolution: false,
@@ -85,6 +89,8 @@ export const useRoadmapStore = create<RoadmapState>((set, get) => ({
   }),
 
   setSelectedDifficulty: (difficulty) => set({ selectedDifficulty: difficulty }),
+
+  setSelectedLevel: (level) => set({ selectedLevel: level }),
 
   setCode: (code) => set({ code }),
 
@@ -123,16 +129,14 @@ export const useRoadmapStore = create<RoadmapState>((set, get) => ({
     const updatedNodes = nodes.map((node) => {
       if (node.id !== nodeId) return node
 
-      const updates: Partial<RoadmapNodeWithProgress> = {}
-      const countKey = `${difficulty}_count` as keyof RoadmapNodeWithProgress
-      const solvedKey = `${difficulty}_solved` as keyof RoadmapNodeWithProgress
+      const countKey = `${difficulty}_count` as 'easy_count' | 'medium_count' | 'hard_count'
+      const solvedKey = `${difficulty}_solved` as 'easy_solved' | 'medium_solved' | 'hard_solved'
 
-      if (solved) {
-        updates[solvedKey] = (node[solvedKey] as number) + 1
+      return {
+        ...node,
+        [countKey]: node[countKey] + 1,
+        ...(solved && { [solvedKey]: node[solvedKey] + 1 })
       }
-      updates[countKey] = (node[countKey] as number) + 1
-
-      return { ...node, ...updates }
     })
 
     set({ nodes: updatedNodes })

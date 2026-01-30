@@ -18,11 +18,19 @@ class StatusEnum(str, enum.Enum):
     solved = "solved"
 
 
+class LevelEnum(str, enum.Enum):
+    beginner = "beginner"
+    intermediate = "intermediate"
+    advanced = "advanced"
+    cheatsheet = "cheatsheet"
+
+
 class RoadmapProblem(BaseModel):
     __tablename__ = "roadmap_problems"
 
     node_id = Column(UUID(as_uuid=True), ForeignKey("roadmap_nodes.id", ondelete="CASCADE"), nullable=False)
     difficulty = Column(Enum(DifficultyEnum), nullable=False, default=DifficultyEnum.easy)
+    level = Column(Enum(LevelEnum), nullable=False, default=LevelEnum.beginner)
     status = Column(Enum(StatusEnum), nullable=False, default=StatusEnum.unsolved)
     title = Column(String(200), nullable=False)
     description = Column(Text, nullable=False)

@@ -1,5 +1,18 @@
 export type Difficulty = 'easy' | 'medium' | 'hard'
 export type ProblemStatus = 'unsolved' | 'attempted' | 'solved'
+export type NodeType = 'concept' | 'module_test'
+export type Level = 'beginner' | 'intermediate' | 'advanced' | 'cheatsheet'
+
+export type NodeTopic =
+  | 'fundamentals'
+  | 'oop'
+  | 'data-structures'
+  | 'tooling'
+  | 'web'
+  | 'database'
+  | 'data-science'
+  | 'concurrency'
+  | 'typing'
 
 export interface RoadmapNode {
   id: string
@@ -12,6 +25,15 @@ export interface RoadmapNode {
   parent_id: string | null
   order_index: number
   concept_keywords: string[] | null
+  topic: NodeTopic | null
+  node_type: NodeType
+  module_order: number | null
+  theory: {
+    beginner?: string
+    intermediate?: string
+    advanced?: string
+    cheatsheet?: string
+  } | null
   created_at: string
 }
 
@@ -22,12 +44,23 @@ export interface RoadmapNodeWithProgress extends RoadmapNode {
   easy_solved: number
   medium_solved: number
   hard_solved: number
+  is_locked: boolean
+}
+
+export interface ModuleCompletion {
+  module_name: string
+  module_order: number
+  is_complete: boolean
+  nodes_complete: number
+  nodes_total: number
+  hard_problems_solved: number
 }
 
 export interface RoadmapProblem {
   id: string
   node_id: string
   difficulty: Difficulty
+  level: Level
   status: ProblemStatus
   title: string
   description: string
@@ -53,6 +86,7 @@ export interface RoadmapProblemSummary {
   id: string
   title: string
   difficulty: Difficulty
+  level: Level
   status: ProblemStatus
   created_at: string
 }

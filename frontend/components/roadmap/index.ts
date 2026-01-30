@@ -1,5 +1,6 @@
 export { RoadmapCanvas } from './RoadmapCanvas'
 export { default as RoadmapNodeComponent } from './RoadmapNode'
 export { DifficultySelector } from './DifficultySelector'
+export { LevelTabs } from './LevelTabs'
 export { ProblemCard } from './ProblemCard'
 export { ProblemModal } from './ProblemModal'

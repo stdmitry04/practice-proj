@@ -5,6 +5,7 @@ import {
   RoadmapProblem,
   RoadmapProblemSummary,
   Difficulty,
+  Level,
   NodeProgress,
   SubmitResult as RoadmapSubmitResult,
 } from '@/types/roadmap'
@@ -77,10 +78,18 @@ export const api = {
     return response.data
   },
 
-  async generateProblem(nodeId: string, difficulty: Difficulty): Promise<RoadmapProblem> {
+  async generateProblem(nodeId: string, difficulty: Difficulty, level: Level): Promise<RoadmapProblem> {
     const response = await client.post(`/roadmap/nodes/${nodeId}/generate`, {
       difficulty,
+      level,
     }, {
+      timeout: 120000, // 2 minutes for AI generation
+    })
+    return response.data
+  },
+
+  async generateModuleTest(nodeId: string): Promise<RoadmapProblem> {
+    const response = await client.post(`/roadmap/nodes/${nodeId}/generate-module-test`, {}, {
       timeout: 120000, // 2 minutes for AI generation
     })
     return response.data
@@ -104,6 +113,11 @@ export const api = {
 
   async getNodeProgress(nodeId: string): Promise<NodeProgress> {
     const response = await client.get(`/roadmap/nodes/${nodeId}/progress`)
+    return response.data
+  },
+
+  async getModuleCompletions(languageId: string): Promise<any[]> {
+    const response = await client.get(`/roadmap/languages/${languageId}/modules/completion`)
     return response.data
   },
 }

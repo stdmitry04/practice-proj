@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useRoadmapStore } from '@/stores/roadmapStore'
 import { RoadmapCanvas } from '@/components/roadmap'
@@ -8,7 +8,7 @@ import { api } from '@/lib/api'
 import { Language } from '@/types'
 import { RoadmapNodeWithProgress } from '@/types/roadmap'
 
-export default function RoadmapPage() {
+function RoadmapContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [languages, setLanguages] = useState<Language[]>([])
@@ -133,9 +133,28 @@ export default function RoadmapPage() {
             </div>
           </div>
         ) : (
-          <RoadmapCanvas nodes={nodes} onNodeClick={handleNodeClick} />
+          <RoadmapCanvas
+            nodes={nodes}
+            languageId={selectedLanguage?.id || ''}
+            onNodeClick={handleNodeClick}
+          />
         )}
       </main>
     </div>
+  )
+}
+
+export default function RoadmapPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-950">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-500 mx-auto"></div>
+          <p className="mt-4 text-gray-400">Loading roadmap...</p>
+        </div>
+      </div>
+    }>
+      <RoadmapContent />
+    </Suspense>
   )
 }

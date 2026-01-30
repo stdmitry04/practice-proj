@@ -3,11 +3,12 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from uuid import UUID
 from typing import List
+import json
 
 from app.database import get_db
 from app.models.language import Language
 from app.models.roadmap_node import RoadmapNode
-from app.models.roadmap_problem import RoadmapProblem, DifficultyEnum as DBDifficultyEnum, StatusEnum as DBStatusEnum
+from app.models.roadmap_problem import RoadmapProblem, DifficultyEnum as DBDifficultyEnum, StatusEnum as DBStatusEnum, LevelEnum as DBLevelEnum
 from app.schemas.roadmap import (
     RoadmapNodeSchema,
     RoadmapNodeWithProgress,
@@ -17,11 +18,24 @@ from app.schemas.roadmap import (
     SubmitCodeRequest,
     SubmitCodeResponse,
     NodeProgressResponse,
+    ModuleCompletionStatus,
 )
 from app.services.roadmap_generator import generate_roadmap_problem
 from app.services.code_runner import run_code
 
 router = APIRouter()
+
+
+def parse_theory(theory):
+    """Parse theory field if it's a JSON string, otherwise return as-is."""
+    if theory is None:
+        return None
+    if isinstance(theory, str):
+        try:
+            return json.loads(theory)
+        except (json.JSONDecodeError, ValueError):
+            return None
+    return theory
 
 
 @router.get("/languages/{language_id}/roadmap", response_model=List[RoadmapNodeWithProgress])
@@ -56,6 +70,10 @@ async def get_language_roadmap(language_id: UUID, db: Session = Depends(get_db))
             parent_id=node.parent_id,
             order_index=node.order_index,
             concept_keywords=node.concept_keywords,
+            topic=node.topic,
+            node_type=node.node_type,
+            module_order=node.module_order,
+            theory=parse_theory(node.theory),
             created_at=node.created_at,
             easy_count=easy_count,
             medium_count=medium_count,
@@ -110,12 +128,14 @@ async def generate_problem(node_id: UUID, request: GenerateProblemRequest, db: S
             concept_name=node.name,
             keywords=node.concept_keywords or [],
             difficulty=request.difficulty.value,
+            level=request.level.value,
             existing_problems=existing_problems,
         )
 
         problem = RoadmapProblem(
             node_id=node_id,
             difficulty=DBDifficultyEnum(request.difficulty.value),
+            level=DBLevelEnum(request.level.value),
             status=DBStatusEnum.unsolved,
             title=problem_data["title"],
             description=problem_data["description"],
@@ -207,3 +227,135 @@ async def get_node_progress(node_id: UUID, db: Session = Depends(get_db)):
         hard_total=sum(1 for p in problems if p.difficulty == DBDifficultyEnum.hard),
         hard_solved=sum(1 for p in problems if p.difficulty == DBDifficultyEnum.hard and p.status == DBStatusEnum.solved),
     )
+
+
+@router.get("/languages/{language_id}/modules/completion", response_model=List[ModuleCompletionStatus])
+async def get_module_completion(language_id: UUID, db: Session = Depends(get_db)):
+    """Get completion status for all modules in a language."""
+    language = db.query(Language).filter(Language.id == language_id).first()
+    if not language:
+        raise HTTPException(status_code=404, detail="Language not found")
+
+    # Get all module test nodes ordered by module_order
+    module_nodes = (
+        db.query(RoadmapNode)
+        .filter(
+            RoadmapNode.language_id == language_id,
+            RoadmapNode.node_type == "module_test"
+        )
+        .order_by(RoadmapNode.module_order)
+        .all()
+    )
+
+    result = []
+    for module_node in module_nodes:
+        # Get all problems for this module test node
+        problems = db.query(RoadmapProblem).filter(RoadmapProblem.node_id == module_node.id).all()
+
+        # Count hard problems solved
+        hard_solved = sum(
+            1 for p in problems
+            if p.difficulty == DBDifficultyEnum.hard and p.status == DBStatusEnum.solved
+        )
+
+        # Get all concept nodes in this module
+        concept_nodes = (
+            db.query(RoadmapNode)
+            .filter(
+                RoadmapNode.language_id == language_id,
+                RoadmapNode.topic == module_node.topic,
+                RoadmapNode.node_type == "concept"
+            )
+            .all()
+        )
+
+        # Count completed concept nodes (at least one problem solved)
+        nodes_complete = 0
+        for node in concept_nodes:
+            node_problems = db.query(RoadmapProblem).filter(
+                RoadmapProblem.node_id == node.id,
+                RoadmapProblem.status == DBStatusEnum.solved
+            ).count()
+            if node_problems > 0:
+                nodes_complete += 1
+
+        result.append(
+            ModuleCompletionStatus(
+                module_name=module_node.topic or "",
+                module_order=module_node.module_order or 0,
+                is_complete=hard_solved >= 1,
+                nodes_complete=nodes_complete,
+                nodes_total=len(concept_nodes),
+                hard_problems_solved=hard_solved,
+            )
+        )
+
+    return result
+
+
+@router.post("/nodes/{node_id}/generate-module-test", response_model=RoadmapProblemSchema)
+async def generate_module_test(node_id: UUID, db: Session = Depends(get_db)):
+    """Generate a comprehensive module test problem combining all module concepts."""
+    node = db.query(RoadmapNode).filter(RoadmapNode.id == node_id).first()
+    if not node:
+        raise HTTPException(status_code=404, detail="Node not found")
+
+    if node.node_type != "module_test":
+        raise HTTPException(status_code=400, detail="This endpoint is only for module test nodes")
+
+    # Get all concept nodes in this module
+    concept_nodes = (
+        db.query(RoadmapNode)
+        .filter(
+            RoadmapNode.language_id == node.language_id,
+            RoadmapNode.topic == node.topic,
+            RoadmapNode.node_type == "concept"
+        )
+        .all()
+    )
+
+    # Collect all keywords from concept nodes
+    all_keywords = []
+    for concept_node in concept_nodes:
+        if concept_node.concept_keywords:
+            all_keywords.extend(concept_node.concept_keywords)
+
+    # Get existing problems for deduplication
+    existing_problems = db.query(RoadmapProblem.title, RoadmapProblem.condensed_description).filter(
+        RoadmapProblem.node_id == node_id
+    ).all()
+    existing_problems = [
+        {"title": p.title, "condensed_description": p.condensed_description}
+        for p in existing_problems
+    ]
+
+    try:
+        from app.services.roadmap_generator import generate_module_test_problem
+
+        problem_data = await generate_module_test_problem(
+            module_name=node.topic or "module",
+            keywords=all_keywords,
+            existing_problems=existing_problems,
+        )
+
+        problem = RoadmapProblem(
+            node_id=node_id,
+            difficulty=DBDifficultyEnum.hard,
+            status=DBStatusEnum.unsolved,
+            title=problem_data["title"],
+            description=problem_data["description"],
+            template_code=problem_data["template_code"],
+            solution_code=problem_data["solution_code"],
+            test_cases=problem_data["test_cases"],
+            hints=problem_data.get("hints"),
+            description_hash=problem_data["description_hash"],
+            condensed_description=problem_data["condensed_description"],
+        )
+
+        db.add(problem)
+        db.commit()
+        db.refresh(problem)
+        return problem
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate module test: {str(e)}")
