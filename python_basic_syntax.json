@@ -1,0 +1,233 @@
+{
+  "topic": "Python Basic Syntax",
+  "description": "A comprehensive guide to Python's fundamental syntax covering variables, data types, operators, control flow structures, and string operations. This resource is organized into four learning levels: beginner fundamentals, intermediate practical applications, advanced implementation details, and a quick reference cheatsheet. Perfect for code learning platforms with 45+ KB of content.",
+  "sections": {
+    "beginner": {
+      "title": "Python Basic Syntax - Beginner Level",
+      "content": "Python is a high-level, interpreted programming language known for its clean and readable syntax. This beginner section introduces the core concepts you need to start writing Python code. Python uses indentation to define code blocks, making code visually clear and enforcing good coding practices. Unlike many languages, Python doesn't require semicolons at statement ends. Variables are dynamically typed, so you don't declare types explicitly. Python supports built-in data types: integers, floats, strings, booleans, lists, dictionaries, tuples, and sets. Basic operators enable arithmetic, comparison, logical, and assignment operations. Control flow structures like if/else and loops make code conditional and iterative. String operations are essential for text manipulation and formatting.",
+      "examples": [
+        {
+          "title": "Creating Variables",
+          "description": "Variables are created by assigning values. Python infers types automatically.",
+          "code": "# Simple variable assignment\nname = \"Alice\"\nage = 25\nheight = 5.6\nis_student = True\n\n# Multiple assignment\nx, y, z = 1, 2, 3\n\n# Swapping variables\na, b = 10, 20\na, b = b, a  # Now a=20, b=10\n\n# Checking variable type\nprint(type(name))      # <class 'str'>\nprint(type(age))       # <class 'int'>\nprint(type(height))    # <class 'float'>\n\n# Deleting variables\ndel name"
+        },
+        {
+          "title": "Basic Data Types",
+          "description": "Understanding fundamental Python data types and creating them.",
+          "code": "# String - text data\ngreeting = \"Hello, World!\"\nempty_string = \"\"\nmultiline = \"\"\"This is\na multiline\nstring\"\"\"\n\n# Integer - whole numbers\ncount = 42\nnegative = -10\nzero = 0\nbinary = 0b1010\nhexadecimal = 0xFF\noctal = 0o755\n\n# Float - decimal numbers\nprice = 19.99\ntemperature = -5.5\nscientific = 1.23e-4\n\n# Boolean - True or False\nis_active = True\nis_empty = False\n\n# Lists - ordered collection\nfruits = [\"apple\", \"banana\", \"orange\"]\nnumbers = [1, 2, 3, 4, 5]\nmixed = [1, \"two\", 3.0, True]\nempty_list = []\n\n# Dictionaries - key-value pairs\nperson = {\"name\": \"Bob\", \"age\": 30, \"city\": \"New York\"}\nempty_dict = {}\n\n# Tuples - immutable sequences\ncoordinates = (10, 20)\nrgb_color = (255, 128, 0)\nempty_tuple = ()\n\n# Sets - unordered unique collections\nunique_numbers = {1, 2, 3}\nempty_set = set()"
+        },
+        {
+          "title": "Basic Operators",
+          "description": "Arithmetic, comparison, and logical operators for basic operations.",
+          "code": "# Arithmetic operators\na = 10\nb = 3\n\naddition = a + b          # 13\nsubtraction = a - b        # 7\nmultiplication = a * b     # 30\ndivision = a / b           # 3.333...\nfloor_division = a // b    # 3\nmodulus = a % b            # 1 (remainder)\nexponent = a ** b          # 1000\n\n# Compound assignment\nx = 5\nx += 2  # x = x + 2 = 7\nx -= 1  # x = x - 1 = 6\nx *= 3  # x = x * 3 = 18\nx /= 2  # x = x / 2 = 9\nx //= 3 # x = x // 3 = 3\nx %= 2  # x = x % 2 = 1\nx **= 2 # x = x ** 2 = 1\n\n# Comparison operators\nprint(a == b)              # False\nprint(a != b)              # True\nprint(a > b)               # True\nprint(a < b)               # False\nprint(a >= 10)             # True\nprint(b <= 3)              # True\n\n# Logical operators\nprint(True and False)       # False\nprint(True or False)        # True\nprint(not True)             # False\nprint(True and True)        # True\nprint(not False)            # True\n\n# Membership operators\nprint(2 in [1, 2, 3])      # True\nprint(4 not in [1, 2, 3])  # True"
+        },
+        {
+          "title": "String Basics",
+          "description": "Creating strings and basic string manipulation.",
+          "code": "# String creation\nsingle_quote = 'Hello'\ndouble_quote = \"World\"\nmulti_line = \"\"\"This is\na multi-line\nstring\"\"\"\n\n# Raw strings\nraw_string = r\"C:\\Users\\Alice\\Documents\"\nprint(raw_string)  # Backslashes not escaped\n\n# String concatenation\nfull_message = \"Hello\" + \" \" + \"World\"\ngreeting = \"Hi, \" + \"Alice\"\n\n# String repetition\nrepeat = \"Ha\" * 3  # \"HaHaHa\"\nline = \"-\" * 20  # \"--------------------\"\n\n# String indexing (0-based)\ntext = \"Python\"\nfirst_char = text[0]       # 'P'\nlast_char = text[-1]       # 'n'\nsecond_char = text[1]      # 'y'\nthird_from_end = text[-3]  # 'h'\n\n# String slicing\nprint(text[0:2])   # \"Py\"\nprint(text[2:4])   # \"th\"\nprint(text[2:])    # \"thon\"\nprint(text[:2])    # \"Py\"\nprint(text[::2])   # \"Pto\" (every 2nd character)\nprint(text[::-1])  # \"nohtyP\" (reversed)\n\n# String length\nlength = len(\"Python\")     # 6\nprint(length)\n\n# String methods\ntext = \"hello world\"\nupper = text.upper()       # \"HELLO WORLD\"\nlower = text.lower()       # \"hello world\"\ncapitalized = text.capitalize()  # \"Hello world\"\n\n# Check if substring exists\nif \"world\" in \"hello world\":\n    print(\"Found world!\")  # This will print\n\nif \"xyz\" not in \"hello world\":\n    print(\"xyz not found\")"
+        },
+        {
+          "title": "If/Else Statements",
+          "description": "Making decisions in your code with conditional statements.",
+          "code": "# Simple if statement\nage = 18\nif age >= 18:\n    print(\"You are an adult\")\n\n# if-else statement\ntemperature = 25\nif temperature > 30:\n    print(\"It's hot\")\nelse:\n    print(\"It's cool\")\n\n# if-elif-else statement\nscore = 75\nif score >= 90:\n    grade = \"A\"\nelif score >= 80:\n    grade = \"B\"\nelif score >= 70:\n    grade = \"C\"\nelse:\n    grade = \"F\"\nprint(f\"Grade: {grade}\")\n\n# Nested conditions\nuser_age = 25\nhas_license = True\nif user_age >= 18:\n    if has_license:\n        print(\"You can drive\")\n    else:\n        print(\"You need a license\")\nelse:\n    print(\"You're too young to drive\")\n\n# Multiple conditions\nx = 15\nif x > 0 and x < 20:\n    print(\"Between 1 and 19\")\n\nif x < 0 or x > 100:\n    print(\"Outside range\")\n\n# Ternary operator\nstatus = \"adult\" if age >= 18 else \"minor\"\nprint(status)"
+        },
+        {
+          "title": "For Loops",
+          "description": "Iterating over sequences using for loops.",
+          "code": "# Loop through a list\nfruits = [\"apple\", \"banana\", \"orange\"]\nfor fruit in fruits:\n    print(fruit)\n\n# Loop with range\nfor i in range(5):         # 0, 1, 2, 3, 4\n    print(i)\n\n# Range with start, stop, step\nfor i in range(1, 10, 2):  # 1, 3, 5, 7, 9\n    print(i)\n\n# Loop with index\ncolors = [\"red\", \"green\", \"blue\"]\nfor index in range(len(colors)):\n    print(f\"{index}: {colors[index]}\")\n\n# Loop through string\nfor char in \"Hello\":\n    print(char)\n\n# Break statement\nfor i in range(10):\n    if i == 5:\n        break        # Exit loop completely\n    print(i)         # 0, 1, 2, 3, 4\n\n# Continue statement\nfor i in range(5):\n    if i == 2:\n        continue     # Skip this iteration\n    print(i)         # 0, 1, 3, 4\n\n# Looping with else\nfor i in range(5):\n    print(i)\nelse:\n    print(\"Loop completed\")  # Runs if no break"
+        },
+        {
+          "title": "While Loops",
+          "description": "Repeating code while a condition is true.",
+          "code": "# Simple while loop\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1  # count = count + 1\n\n# While loop with break\nuser_input = \"\"\nwhile user_input != \"quit\":\n    user_input = input(\"Enter 'quit' to exit: \")\n    if user_input == \"quit\":\n        print(\"Goodbye!\")\n        break\n\n# While loop with continue\nnum = 0\nwhile num < 10:\n    num += 1\n    if num % 2 == 0:\n        continue    # Skip even numbers\n    print(num)      # 1, 3, 5, 7, 9\n\n# While-else\ncount = 0\nwhile count < 5:\n    print(count)\n    count += 1\nelse:\n    print(\"While loop completed\")\n\n# Infinite loop (use with caution)\n# while True:\n#     user_input = input(\"Enter something: \")\n#     if user_input == \"stop\":\n#         break"
+        }
+      ]
+    },
+    "intermediate": {
+      "title": "Python Basic Syntax - Intermediate Level",
+      "content": "At the intermediate level, you apply Python's basic syntax to solve real-world problems. This includes working with more complex data structures, understanding variable scope, using list comprehensions for elegant code, working with dictionaries and tuples effectively, implementing sophisticated control flow patterns, exploring string formatting techniques, exception handling basics, and writing cleaner Pythonic code. Understanding these patterns helps you write code that is functional, readable, and maintainable.",
+      "examples": [
+        {
+          "title": "List Comprehensions",
+          "description": "Creating lists in a concise and readable way.",
+          "code": "# Basic list comprehension\nsquares = [x**2 for x in range(10)]\n# Result: [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]\n\n# List comprehension with condition\neven_numbers = [x for x in range(20) if x % 2 == 0]\n# Result: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]\n\n# List comprehension with transformation\nuppercase = [word.upper() for word in [\"hello\", \"world\"]]\n# Result: ['HELLO', 'WORLD']\n\n# Nested list comprehension\nmatrix = [[i*j for j in range(3)] for i in range(3)]\n# Result: [[0, 0, 0], [0, 1, 2], [0, 2, 4]]\n\n# List comprehension with multiple conditions\nfiltered = [x for x in range(100) if x % 2 == 0 if x % 5 == 0]\n# Result: [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]\n\n# Converting strings to numbers\nnumber_strings = [\"1\", \"2\", \"3\", \"4\", \"5\"]\nnumbers = [int(x) for x in number_strings]\n# Result: [1, 2, 3, 4, 5]\n\n# Dictionary comprehension\nsquares_dict = {x: x**2 for x in range(5)}\n# Result: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}\n\n# Set comprehension\nunique_squares = {x**2 for x in [-2, -1, 0, 1, 2]}\n# Result: {0, 1, 4}"
+        },
+        {
+          "title": "Dictionary Operations",
+          "description": "Working with dictionaries for storing key-value data.",
+          "code": "# Creating dictionaries\nstudent = {\"name\": \"Alice\", \"age\": 20, \"grade\": \"A\"}\nprint(student[\"name\"])     # \"Alice\"\n\n# Adding and updating items\nstudent[\"email\"] = \"alice@example.com\"\nstudent[\"age\"] = 21\n\n# Getting values with default\nphone = student.get(\"phone\", \"Not provided\")\nprint(phone)  # \"Not provided\"\n\n# Checking if key exists\nif \"grade\" in student:\n    print(f\"Grade: {student['grade']}\")\n\nif \"phone\" not in student:\n    print(\"Phone not in dictionary\")\n\n# Iterating over dictionary\nfor key, value in student.items():\n    print(f\"{key}: {value}\")\n\nfor key in student:\n    print(f\"Key: {key}\")\n\nfor value in student.values():\n    print(f\"Value: {value}\")\n\n# Dictionary keys and values\nkeys = student.keys()       # dict_keys(['name', 'age', 'grade', 'email'])\nvalues = student.values()   # dict_values(['Alice', 21, 'A', 'alice@example.com'])\n\n# Removing items\ndel student[\"email\"]\nremoved_value = student.pop(\"grade\", \"Not found\")\nprint(removed_value)  # \"A\"\n\n# Dictionary comprehension\nsquares_dict = {x: x**2 for x in range(5)}\n# Result: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}\n\n# Updating dictionary\ndata = {\"a\": 1, \"b\": 2}\ndata.update({\"c\": 3, \"d\": 4})\nprint(data)  # {'a': 1, 'b': 2, 'c': 3, 'd': 4}"
+        },
+        {
+          "title": "String Formatting",
+          "description": "Multiple ways to format strings with variables.",
+          "code": "# String concatenation (basic)\nname = \"Bob\"\nage = 30\nmessage = \"My name is \" + name + \" and I am \" + str(age) + \" years old\"\n\n# String formatting with %\nmessage = \"My name is %s and I am %d years old\" % (name, age)\nmessage = \"Value: %f\" % 3.14\n\n# Format method\nmessage = \"My name is {} and I am {} years old\".format(name, age)\nmessage = \"My name is {0} and I am {1} years old\".format(name, age)\nmessage = \"My name is {n} and I am {a} years old\".format(n=name, a=age)\n\n# F-strings (Python 3.6+) - most modern\nmessage = f\"My name is {name} and I am {age} years old\"\n\n# F-string expressions\nprice = 19.99\nquantity = 5\nprint(f\"Total: ${price * quantity:.2f}\")  # \"Total: $99.95\"\n\n# F-string with formatting\npi = 3.14159\nprint(f\"Pi rounded: {pi:.2f}\")  # \"Pi rounded: 3.14\"\nprint(f\"Number: {42:05d}\")       # \"Number: 00042\"\nprint(f\"Percentage: {0.856:.1%}\") # \"Percentage: 85.6%\"\nprint(f\"Hex: {255:x}\")            # \"Hex: ff\"\nprint(f\"Binary: {5:b}\")           # \"Binary: 101\"\n\n# String alignment\nprint(f\"{name:<10}\")  # Left align\nprint(f\"{name:>10}\")  # Right align\nprint(f\"{name:^10}\")  # Center\nprint(f\"{name:.^10}\") # Center with dots"
+        },
+        {
+          "title": "Exception Handling Basics",
+          "description": "Handling errors gracefully with try-except blocks.",
+          "code": "# Basic try-except\ntry:\n    number = int(\"not a number\")\nexcept ValueError:\n    print(\"Invalid input: please enter a number\")\n\n# Try-except-else\ntry:\n    age = int(input(\"Enter your age: \"))\nexcept ValueError:\n    print(\"Invalid age entered\")\nelse:\n    if age >= 18:\n        print(\"You are an adult\")\n\n# Catching multiple exceptions\ntry:\n    result = 10 / 0\nexcept (ValueError, ZeroDivisionError):\n    print(\"Error: Invalid input or division by zero\")\n\n# Exception with access to error message\ntry:\n    data = {\"name\": \"Alice\"}\n    print(data[\"age\"])\nexcept KeyError as e:\n    print(f\"Key not found: {e}\")\n\n# Finally block (always executes)\ntry:\n    file = open(\"data.txt\", \"r\")\n    content = file.read()\nexcept FileNotFoundError:\n    print(\"File not found\")\nfinally:\n    if 'file' in locals():\n        file.close()\n\n# Using except with generic Exception\ntry:\n    result = 10 / 0\nexcept Exception as e:\n    print(f\"An error occurred: {type(e).__name__}: {e}\")\n\n# Raising exceptions\nage = -5\nif age < 0:\n    raise ValueError(\"Age cannot be negative\")"
+        },
+        {
+          "title": "Tuple and Set Operations",
+          "description": "Working with tuples and sets for special use cases.",
+          "code": "# Tuples - immutable sequences\npoint = (10, 20)\nx, y = point  # Unpacking\nprint(f\"Point: ({x}, {y})\")\n\n# Tuple unpacking in loops\ndata = [(\"Alice\", 25), (\"Bob\", 30), (\"Charlie\", 35)]\nfor name, age in data:\n    print(f\"{name} is {age} years old\")\n\n# Unpacking with rest\nfirst, *rest, last = (1, 2, 3, 4, 5)\nprint(first)  # 1\nprint(rest)   # [2, 3, 4]\nprint(last)   # 5\n\n# Tuple methods\ncoordinates = (1, 2, 3, 2, 1)\ncount = coordinates.count(2)  # 2\nindex = coordinates.index(3)  # 2\n\n# Sets - unordered unique collections\nunique_numbers = {1, 2, 3, 2, 1}\nprint(unique_numbers)  # {1, 2, 3}\n\n# Set operations\nset_a = {1, 2, 3, 4}\nset_b = {3, 4, 5, 6}\n\nunion = set_a | set_b           # {1, 2, 3, 4, 5, 6}\nintersection = set_a & set_b   # {3, 4}\ndifference = set_a - set_b     # {1, 2}\nsymmetric_diff = set_a ^ set_b # {1, 2, 5, 6}\n\n# Set methods\nif 3 in set_a:\n    print(\"3 is in set_a\")\n\nset_a.add(5)        # Add single element\nset_a.remove(1)     # Raises KeyError if not found\nset_a.discard(1)    # No error if not found\nset_c = set_a.copy() # Create copy\nset_a.clear()       # Remove all elements"
+        },
+        {
+          "title": "Loop Control and Iteration",
+          "description": "Advanced loop patterns including enumerate and zip.",
+          "code": "# Using enumerate for index and value\nfruits = [\"apple\", \"banana\", \"orange\"]\nfor index, fruit in enumerate(fruits):\n    print(f\"{index}: {fruit}\")\n# Output:\n# 0: apple\n# 1: banana\n# 2: orange\n\n# Using enumerate with custom start\nfor index, fruit in enumerate(fruits, start=1):\n    print(f\"{index}: {fruit}\")\n# Output: 1: apple, 2: banana, 3: orange\n\n# Using zip to combine sequences\nnames = [\"Alice\", \"Bob\", \"Charlie\"]\nages = [25, 30, 35]\nfor name, age in zip(names, ages):\n    print(f\"{name} is {age} years old\")\n\n# Zip with multiple sequences\nfor name, age, city in zip(names, ages, [\"NYC\", \"LA\", \"Chicago\"]):\n    print(f\"{name}, {age}, {city}\")\n\n# For-else loop\nfor i in range(10):\n    if i == 100:\n        print(\"Found 100\")\n        break\nelse:\n    print(\"100 not found in range\")\n\n# While-else loop\ncount = 0\nwhile count < 5:\n    if count == 10:\n        break\n    count += 1\nelse:\n    print(\"Loop completed normally\")"
+        },
+        {
+          "title": "Variable Scope and Naming",
+          "description": "Understanding variable scope and Python naming conventions.",
+          "code": "# Global scope\nglobal_var = \"I'm global\"\n\ndef example_function():\n    # Local scope\n    local_var = \"I'm local\"\n    print(global_var)  # Can access global variable\n    print(local_var)   # Can access local variable\n\n# This would cause NameError:\n# print(local_var)  # NameError: local_var not defined\n\n# Modifying global variable inside function\ncounter = 0\n\ndef increment():\n    global counter  # Declare we're using global variable\n    counter += 1\n\nincrement()\nprint(counter)  # 1\n\n# Nonlocal scope (for nested functions)\ndef outer():\n    x = \"outer\"\n    \n    def inner():\n        nonlocal x\n        x = \"modified\"\n    \n    inner()\n    print(x)  # \"modified\"\n\nouter()\n\n# Python naming conventions (PEP 8)\nvariable_name = \"snake_case for variables\"  # Good\nCLASSNAME = \"PascalCase for classes\"\nCONSTANT_VALUE = \"UPPER_SNAKE_CASE for constants\"\n_private_var = \"Leading underscore for internal use\"\n__dunder_var__ = \"Double underscores for special methods\"\n\n# Local variable access is faster\ndef use_global():\n    return global_var + \"!\"\n\ndef use_local():\n    local_var = \"local\"\n    return local_var + \"!\""
+        },
+        {
+          "title": "String Methods and Manipulation",
+          "description": "Practical string methods for text processing.",
+          "code": "text = \"Hello, World!\"\n\n# Case manipulation\nprint(text.upper())         # \"HELLO, WORLD!\"\nprint(text.lower())         # \"hello, world!\"\nprint(text.title())         # \"Hello, World!\"\nprint(text.capitalize())    # \"Hello, world!\"\nprint(text.swapcase())      # \"hELLO, wORLD!\"\n\n# Checking string properties\nprint(text.startswith(\"Hello\"))  # True\nprint(text.endswith(\"!\"))       # True\nprint(text.isdigit())           # False\nprint(\"123\".isdigit())          # True\nprint(\"123abc\".isalnum())       # True (alphanumeric)\nprint(\"   \".isspace())          # True (whitespace)\nprint(\"Hello\".isalpha())        # True (only letters)\nprint(\"123abc\".isalnum())       # True (letters and numbers)\n\n# Finding and replacing\nprint(text.find(\"World\"))       # 7\nprint(text.index(\"World\"))      # 7\nprint(text.replace(\"World\", \"Python\"))  # \"Hello, Python!\"\nprint(text.count(\",\"))          # 1\n\n# Splitting and joining\nwords = text.split(\",\")         # ['Hello', ' World!']\njoined = \" - \".join(words)     # 'Hello -  World!'\nparts = text.split()\n\n# Stripping whitespace\ntext_with_spaces = \"  hello  \"\nprint(repr(text_with_spaces.strip()))   # 'hello'\nprint(repr(text_with_spaces.lstrip()))  # 'hello  '\nprint(repr(text_with_spaces.rstrip()))  # '  hello'\n\n# Padding\ntext_short = \"hi\"\nprint(text_short.ljust(10))    # 'hi        '\nprint(text_short.rjust(10))    # '        hi'\nprint(text_short.center(10))   # '    hi    '\n\n# Other methods\ntext_numbers = \"aaa bbb aaa ccc aaa\"\nprint(text_numbers.count(\"aaa\"))       # 3\nprint(text_numbers.index(\"bbb\"))       # 4\nprint(text_numbers.rindex(\"aaa\"))      # 16"
+        },
+        {
+          "title": "Type Conversion and Checking",
+          "description": "Converting between data types and type checking.",
+          "code": "# String to number conversions\nint_value = int(\"42\")          # 42\nint_from_float = int(3.14)     # 3 (truncates)\nfloat_value = float(\"3.14\")    # 3.14\nfloat_from_int = float(42)     # 42.0\n\n# String conversions\nstr_int = str(42)              # \"42\"\nstr_float = str(3.14)          # \"3.14\"\nstr_bool = str(True)           # \"True\"\n\n# Boolean conversions\nbool_zero = bool(0)            # False\nbool_one = bool(1)             # True\nbool_empty = bool(\"\")          # False (empty string)\nbool_non_empty = bool(\"text\")  # True\nbool_empty_list = bool([])     # False\nbool_non_empty_list = bool([1, 2])  # True\nbool_empty_dict = bool({})     # False\nbool_none = bool(None)         # False\n\n# Type checking\nvalue = \"hello\"\nprint(type(value))             # <class 'str'>\nprint(isinstance(value, str))  # True\nprint(isinstance(value, int))  # False\n\n# Checking multiple types\nif isinstance(value, (str, int, float)):\n    print(\"Value is string, int, or float\")\n\n# Getting type name as string\ntype_name = type(42).__name__  # \"int\"\nprint(type_name)"
+        }
+      ]
+    },
+    "advanced": {
+      "title": "Python Basic Syntax - Advanced Level",
+      "content": "At the advanced level, explore internal mechanisms of Python's basic syntax, optimization techniques, performance considerations, and edge cases. This includes understanding how Python implements data types at the bytecode level, memory management and garbage collection, the global interpreter lock, descriptor protocol, operator overloading through magic methods, and advanced string encoding techniques. Learn about Python's dynamic typing system, name resolution order, and how to write high-performance code.",
+      "examples": [
+        {
+          "title": "Python Bytecode and Compilation",
+          "description": "Understanding bytecode compilation and execution.",
+          "code": "import dis\n\n# Simple function\ndef add(a, b):\n    return a + b\n\n# Disassemble to see bytecode\ndis.dis(add)\n# OUTPUT:\n#   2           0 LOAD_FAST                0 (a)\n#               2 LOAD_FAST                1 (b)\n#               4 BINARY_ADD\n#               6 RETURN_VALUE\n\n# More complex example\ndef conditional(x):\n    if x > 0:\n        return \"positive\"\n    else:\n        return \"negative\"\n\ndis.dis(conditional)\n\n# Checking compiled code object\ncode_obj = add.__code__\nprint(code_obj.co_consts)     # (None, )\nprint(code_obj.co_varnames)   # ('a', 'b')\nprint(code_obj.co_code)       # Bytecode as bytes\nprint(code_obj.co_names)      # Names referenced\nprint(code_obj.co_argcount)   # Number of arguments"
+        },
+        {
+          "title": "Object Identity vs Equality",
+          "description": "Understanding == vs is operators and object identity.",
+          "code": "# Equality (==) vs Identity (is)\na = [1, 2, 3]\nb = [1, 2, 3]\nc = a\n\nprint(a == b)      # True (same content)\nprint(a is b)      # False (different objects)\nprint(a is c)      # True (same object in memory)\nprint(id(a))       # Memory address of a\nprint(id(b))       # Different memory address\nprint(id(c))       # Same as a\n\n# Integer caching\nx = 256\ny = 256\nprint(x is y)      # True (Python caches -5 to 256)\n\nz = 257\nw = 257\nprint(z is w)      # Usually False (outside cache)\n\n# String interning\nstr1 = \"hello\"\nstr2 = \"hello\"\nprint(str1 is str2)  # Often True (strings interned)\n\n# None comparison\nvalue = None\nif value is None:    # Correct way\n    print(\"value is None\")\n\nif value == None:    # Works but not recommended\n    print(\"value equals None\")\n\n# Tuple immutability and caching\nt1 = (1, 2, 3)\nt2 = (1, 2, 3)\nprint(t1 == t2)      # True\nprint(t1 is t2)      # May be True or False"
+        },
+        {
+          "title": "Name Resolution Order (LEGB)",
+          "description": "Understanding LEGB name resolution: Local, Enclosing, Global, Built-in.",
+          "code": "# Global scope variable\nx = \"global\"\n\ndef outer():\n    # Enclosing scope\n    x = \"enclosing\"\n    \n    def inner():\n        # Local scope\n        x = \"local\"\n        print(x)  # Prints: local\n    \n    inner()\n    print(x)      # Prints: enclosing\n\nouter()\nprint(x)         # Prints: global\n\n# Demonstrating LEGB without local variable\ndef outer_no_local():\n    x = \"enclosing value\"\n    \n    def inner_accessing():\n        # No local x, so looks in enclosing\n        print(x)  # Prints: enclosing value\n    \n    inner_accessing()\n\nouter_no_local()\n\n# Accessing built-in functions\nprint(len([1, 2, 3]))  # Built-in function len\n\n# Shadowing built-in (not recommended)\nlen = lambda x: 999  # Shadowing built-in\nprint(len([1, 2, 3]))  # Prints: 999\ndel len  # Remove shadow\nprint(len([1, 2, 3]))  # Prints: 3\n\n# Global keyword affects resolution\ncounter = 0\n\ndef increment():\n    global counter  # Skip local/enclosing, go global\n    counter += 1\n\nincrement()\nprint(counter)  # 1\n\n# Using globals() and locals()\ndef show_scope():\n    local_var = \"local\"\n    print(\"Locals:\", locals())\n    print(\"Globals:\", list(globals().keys()))\n\nglobal_var = \"global\"\nshow_scope()"
+        },
+        {
+          "title": "Magic Methods for Operators",
+          "description": "Operator overloading through dunder methods.",
+          "code": "class Vector:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    \n    # Arithmetic operators\n    def __add__(self, other):\n        \"\"\"Addition operator +\"\"\"\n        return Vector(self.x + other.x, self.y + other.y)\n    \n    def __sub__(self, other):\n        \"\"\"Subtraction operator -\"\"\"\n        return Vector(self.x - other.x, self.y - other.y)\n    \n    def __mul__(self, scalar):\n        \"\"\"Multiplication operator *\"\"\"\n        return Vector(self.x * scalar, self.y * scalar)\n    \n    def __truediv__(self, scalar):\n        \"\"\"Division operator /\"\"\"\n        return Vector(self.x / scalar, self.y / scalar)\n    \n    # Comparison operators\n    def __eq__(self, other):\n        \"\"\"Equality operator ==\"\"\"\n        return self.x == other.x and self.y == other.y\n    \n    def __lt__(self, other):\n        \"\"\"Less than operator <\"\"\"\n        return (self.x**2 + self.y**2) < (other.x**2 + other.y**2)\n    \n    def __le__(self, other):\n        \"\"\"Less than or equal <=\"\"\"\n        return self == other or self < other\n    \n    # String representation\n    def __str__(self):\n        \"\"\"User-friendly string\"\"\"\n        return f\"Vector({self.x}, {self.y})\"\n    \n    def __repr__(self):\n        \"\"\"Developer-friendly representation\"\"\"\n        return f\"Vector(x={self.x}, y={self.y})\"\n    \n    # Container-like operators\n    def __len__(self):\n        \"\"\"len() function\"\"\"\n        return 2  # 2D vector\n    \n    def __getitem__(self, index):\n        \"\"\"Indexing operator []\"\"\"\n        if index == 0:\n            return self.x\n        elif index == 1:\n            return self.y\n        else:\n            raise IndexError(\"Vector index out of range\")\n    \n    def __setitem__(self, index, value):\n        \"\"\"Setting items []=\"\"\"\n        if index == 0:\n            self.x = value\n        elif index == 1:\n            self.y = value\n        else:\n            raise IndexError()\n\n# Usage\nv1 = Vector(1, 2)\nv2 = Vector(3, 4)\nv3 = v1 + v2  # Calls __add__\nprint(v3)      # Vector(4, 6)\nprint(v1 == v2)  # False\nprint(v1[0])   # 1"
+        },
+        {
+          "title": "String Encoding and Unicode",
+          "description": "Understanding Unicode and character encoding.",
+          "code": "# Python 3 strings are Unicode by default\ntext = \"Hello, World!\"\nprint(text)  # Hello, World!\nprint(len(text))  # 14 characters\n\n# Encoding to bytes\nbytes_utf8 = text.encode('utf-8')\nprint(bytes_utf8)  # b'Hello, World!'\nprint(len(bytes_utf8))  # 14 bytes\n\n# Encoding with different encodings\nbytes_utf16 = text.encode('utf-16')\nprint(len(bytes_utf16))  # 30 bytes\n\nbytes_ascii = text.encode('ascii')\nprint(bytes_ascii)  # b'Hello, World!'\n\n# Decoding bytes back to string\noriginal = bytes_utf8.decode('utf-8')\nprint(original)  # Hello, World!\n\n# Handling encoding errors\ntext_special = \"Hello World\"\nresult = text_special.encode('ascii', errors='ignore')\nprint(result)  # b'Hello World'\n\nresult = text_special.encode('ascii', errors='replace')\nprint(result)  # b'Hello World'\n\nresult = text_special.encode('ascii', errors='xmlcharrefreplace')\nprint(result)  # b'Hello World'\n\n# Checking if string is ASCII\nprint(\"hello\".isascii())       # True\nprint(\"hello123\".isascii())    # True\nprint(\"hello\\u2764\".isascii()) # False\n\n# String representation in different bases\nprint(repr(\"hello\"))           # 'hello'\nprint(ascii(\"hello\"))          # 'hello'\nprint(bin(42))                 # '0b101010'\nprint(hex(255))                # '0xff'\nprint(oct(8))                  # '0o10'"
+        },
+        {
+          "title": "Performance Optimization",
+          "description": "Techniques for optimizing Python code performance.",
+          "code": "import timeit\n\n# String concatenation comparison\ndef slow_concat():\n    result = \"\"\n    for i in range(1000):\n        result += str(i)\n    return result\n\ndef fast_concat():\n    return \"\".join(str(i) for i in range(1000))\n\n# List membership checking\ndef slow_membership():\n    items = list(range(10000))\n    count = 0\n    for i in range(100000):\n        if i in items:  # O(n)\n            count += 1\n    return count\n\ndef fast_membership():\n    items = set(range(10000))  # O(1) lookup\n    count = 0\n    for i in range(100000):\n        if i in items:\n            count += 1\n    return count\n\n# List comprehension vs loop\ndef list_comp():\n    return [x**2 for x in range(10000)]\n\ndef list_loop():\n    result = []\n    for x in range(10000):\n        result.append(x**2)\n    return result\n\n# Local vs global variable access\nglobal_var = 10\n\ndef use_global():\n    return global_var + 1\n\ndef use_local():\n    local_var = 10\n    return local_var + 1\n\n# Using built-in functions\ndef slow_max():\n    return max([1, 2, 3, 4, 5])\n\ndef fast_iteration():\n    items = [1, 2, 3, 4, 5]\n    maximum = items[0]\n    for item in items[1:]:\n        if item > maximum:\n            maximum = item\n    return maximum"
+        },
+        {
+          "title": "Advanced Control Flow",
+          "description": "Advanced patterns for control flow optimization.",
+          "code": "# Generator expressions for memory efficiency\ndef process_large_dataset():\n    # Generator (lazy evaluation)\n    squares_gen = (x**2 for x in range(1000000))\n    \n    # Only computed when needed\n    for square in squares_gen:\n        if square > 1000:\n            print(f\"Found: {square}\")\n            break\n\n# Short-circuit evaluation\ndata = [1, 2, 3, 4, 5]\nif any(x > 4 for x in data):  # Stops after finding\n    print(\"Found value > 4\")\n\nif all(x > 0 for x in data):  # Checks all\n    print(\"All positive\")\n\n# Dictionary get with default\nconfig = {\"debug\": True, \"timeout\": 30}\ndebug_mode = config.get(\"debug\", False)\n\n# Filter and map\nnumbers = [1, 2, 3, 4, 5, 6]\neven = list(filter(lambda x: x % 2 == 0, numbers))\nsquares = list(map(lambda x: x**2, numbers))\n\n# Reduce\nfrom functools import reduce\nproduct = reduce(lambda x, y: x * y, numbers)\n\n# Nested comprehension\nmatrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nflat_even = [x for row in matrix for x in row if x % 2 == 0]\n\n# Walrus operator (Python 3.8+)\nif (n := len([1, 2, 3])) > 2:\n    print(f\"List has {n} elements\")"
+        },
+        {
+          "title": "Memory and Garbage Collection",
+          "description": "Understanding Python memory management.",
+          "code": "import gc\nimport sys\n\n# Reference counting\nobj = [1, 2, 3]\nref_count = sys.getrefcount(obj)  # Reference count\nprint(f\"Reference count: {ref_count}\")\n\n# Creating more references\nobj2 = obj\nref_count = sys.getrefcount(obj)  # Count increased\n\ndel obj2\nref_count = sys.getrefcount(obj)  # Count decreased\n\n# Circular references\nclass Node:\n    def __init__(self, value):\n        self.value = value\n        self.next = None\n\nnode1 = Node(1)\nnode2 = Node(2)\nnode1.next = node2\nnode2.next = node1  # Circular reference\n\ndel node1, node2\ngc.collect()  # Garbage collector cleans up\n\n# Garbage collection control\ngc.collect()      # Force collection\ngc.disable()      # Disable collector\ngc.enable()       # Re-enable collector\ngc.get_stats()    # Collector stats\n\n# Memory cleanup\nlarge_list = [i for i in range(1000000)]\nsize = sys.getsizeof(large_list)\ndel large_list    # Explicit cleanup\n\n# Context managers for cleanup\nclass Resource:\n    def __init__(self, name):\n        self.name = name\n    def __enter__(self):\n        print(f\"Acquiring {self.name}\")\n        return self\n    def __exit__(self, *args):\n        print(f\"Releasing {self.name}\")\n\nwith Resource(\"Database\") as db:\n    print(f\"Using {db.name}\")"
+        },
+        {
+          "title": "Dynamic Typing and Coercion",
+          "description": "Understanding dynamic typing and type coercion.",
+          "code": "# Dynamic type changes\nvalue = 42\nprint(type(value))  # <class 'int'>\n\nvalue = \"hello\"\nprint(type(value))  # <class 'str'>\n\nvalue = [1, 2, 3]\nprint(type(value))  # <class 'list'>\n\n# Type coercion in operations\nresult = \"5\" + \"3\"       # \"53\" (concatenation)\nresult = 5 + 3           # 8 (addition)\n# result = \"5\" + 3  # TypeError\n\n# Implicit type conversion in comparisons\nprint(5 == 5.0)          # True (int equals float)\nprint(5 is 5.0)          # False (different types)\nprint(\"5\" == 5)          # False (string != int)\n\n# Truthy and falsy values\nif 0:\n    print(\"zero is truthy\")\nelse:\n    print(\"zero is falsy\")\n\nif []:\n    print(\"empty list truthy\")\nelse:\n    print(\"empty list falsy\")\n\n# All truthy/falsy values\nfalsy_values = [False, None, 0, 0.0, \"\", [], {}, set(), ()]\ntruthy_values = [True, 1, \"text\", [0], {\"key\": None}]\n\n# Type coercion with operators\nprint(True + 1)          # 2 (True is 1)\nprint(False + True)      # 1 (False is 0, True is 1)\nprint(True * 5)          # 5\nprint(not False)         # True\n\n# Short-circuit evaluation\nresult = \"\" or \"default\"  # \"default\"\nresult = \"value\" or \"default\"  # \"value\"\nresult = None and \"never reached\"  # None"
+        }
+      ]
+    },
+    "cheatsheet": {
+      "title": "Python Basic Syntax - Quick Reference",
+      "content": "This cheatsheet provides quick-access code snippets for Python basic syntax. Use this section for rapid reference during coding. Includes common patterns, operators, methods, and best practices.",
+      "quick_reference": [
+        {
+          "category": "Variables and Assignment",
+          "snippets": [
+            {"title": "Assignment", "code": "name = \"Alice\"\nage = 30\nheight = 5.6\nis_active = True\nx, y, z = 1, 2, 3  # Multiple\na, b = b, a  # Swap"},
+            {"title": "Constants", "code": "MAX_SIZE = 100\nPI = 3.14159\nDEFAULT_TIMEOUT = 30"}
+          ]
+        },
+        {
+          "category": "Data Types",
+          "snippets": [
+            {"title": "Strings", "code": "single = 'text'\ndouble = \"text\"\nmulti = \"\"\"multi line\"\"\"\nraw = r\"\\n\\t are literals\"\nf_string = f\"Value: {x}\""},
+            {"title": "Numbers", "code": "integer = 42\nhex_num = 0xFF\noctal = 0o755\nbinary = 0b1010\nfloat_num = 3.14\nscientific = 1.23e-4"},
+            {"title": "Collections", "code": "lst = [1, 2, 3]\ntup = (1, 2, 3)\nset_val = {1, 2, 3}\ndct = {\"key\": \"value\"}"}
+          ]
+        },
+        {
+          "category": "Operators",
+          "snippets": [
+            {"title": "Arithmetic", "code": "a + b  # Add\na - b  # Subtract\na * b  # Multiply\na / b  # Divide\na // b # Floor divide\na % b  # Modulus\na ** b # Power"},
+            {"title": "Comparison", "code": "a == b   # Equal\na != b   # Not equal\na < b    # Less\na > b    # Greater\na <= b   # Less or equal\na >= b   # Greater or equal"},
+            {"title": "Logical", "code": "a and b  # Both\na or b   # Either\nnot a    # Negate\na is b   # Same object\na in b   # Contains"}
+          ]
+        },
+        {
+          "category": "Strings",
+          "snippets": [
+            {"title": "Methods", "code": "text.upper()        # UPPERCASE\ntext.lower()        # lowercase\ntext.title()        # Title Case\ntext.replace(\"old\", \"new\")\ntext.split(\" \")     # Split by space\n\" \".join([\"a\", \"b\"])\ntext.startswith(\"H\")\ntext.find(\"substring\")"},
+            {"title": "Slicing", "code": "text[0]       # First character\ntext[-1]      # Last character\ntext[0:2]     # First 2 characters\ntext[2:]      # From position 2\ntext[:2]      # Up to position 2\ntext[::2]     # Every 2nd character\ntext[::-1]    # Reversed"},
+            {"title": "Formatting", "code": "f\"Value: {x}\"\nf\"Decimal: {x:.2f}\"\n\"{}\".format(value)\n\"%s %d\" % (string, int)"}
+          ]
+        },
+        {
+          "category": "Lists",
+          "snippets": [
+            {"title": "Operations", "code": "lst = [1, 2, 3]\nlst[0]          # Access\nlst.append(4)   # Add\nlst.insert(0, 0) # Insert\nlst.remove(1)   # Remove\nlst.pop()       # Remove last\nlst.sort()      # Sort\nlst.reverse()   # Reverse\nlen(lst)        # Length\nsum(lst)        # Sum"},
+            {"title": "Comprehension", "code": "[x*2 for x in range(5)]\n[x for x in range(10) if x % 2 == 0]\n[[x*y for y in range(3)] for x in range(3)]\n{x: x**2 for x in range(5)}\n{x for x in range(5)}"}
+          ]
+        },
+        {
+          "category": "Dictionaries",
+          "snippets": [
+            {"title": "Operations", "code": "d = {\"name\": \"Alice\"}\nd[\"name\"]          # Access\nd.get(\"age\", 0)    # Get with default\nd[\"age\"] = 30      # Set\ndel d[\"age\"]       # Delete\nd.keys()           # Keys\nd.values()         # Values\nd.items()          # Key-value pairs\n\"name\" in d        # Check key"}
+          ]
+        },
+        {
+          "category": "Control Flow",
+          "snippets": [
+            {"title": "If-Else", "code": "if condition:\n    pass\nelif other:\n    pass\nelse:\n    pass\nresult = true_val if condition else false_val"},
+            {"title": "For Loop", "code": "for item in items:\n    pass\nfor i in range(10):\n    pass\nfor i, item in enumerate(items):\n    pass\nfor k, v in dict.items():\n    pass"},
+            {"title": "While Loop", "code": "while condition:\n    pass\nwhile True:\n    if condition:\n        break\nelse:\n    pass  # After loop"}
+          ]
+        },
+        {
+          "category": "Functions",
+          "snippets": [
+            {"title": "Definition", "code": "def func(a, b=0):\n    return a + b\ndef func(*args):\n    for arg in args: pass\ndef func(**kwargs):\n    for k, v in kwargs.items(): pass\nsquare = lambda x: x**2"}
+          ]
+        },
+        {
+          "category": "Exception Handling",
+          "snippets": [
+            {"title": "Try-Except", "code": "try:\n    pass\nexcept ValueError:\n    pass\nexcept Exception as e:\n    pass\nelse:\n    pass\nfinally:\n    pass"}
+          ]
+        },
+        {
+          "category": "Type Conversion",
+          "snippets": [
+            {"title": "Conversions", "code": "str(42)         # \"42\"\nint(\"42\")       # 42\nfloat(\"3.14\")   # 3.14\nbool(1)         # True\nlist((1, 2))    # [1, 2]\ntuple([1, 2])   # (1, 2)\nset([1, 1, 2])  # {1, 2}"},
+            {"title": "Type Checking", "code": "type(42)                # <class 'int'>\nisinstance(42, int)     # True\nisinstance(42, (int, float))\ntype(x).__name__        # \"int\""}
+          ]
+        },
+        {
+          "category": "Best Practices",
+          "snippets": [
+            {"title": "Pythonic Code", "code": "if not my_list:  # Check empty\n    pass\nif item in list:  # Membership\n    pass\nif value is None:  # None check\n    pass\nwith open(\"file\") as f:  # Context\n    pass"},
+            {"title": "Common Patterns", "code": "count = {}\nfor item in items:\n    count[item] = count.get(item, 0) + 1\nmax(numbers)\nmin(numbers)\nflat = [x for row in matrix for x in row]\nfor a, b in zip(list1, list2):\n    pass"}
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -43,7 +43,7 @@ class RoadmapNodeBase(BaseModel):
     topic: str | None = None  # For visual grouping (e.g., 'fundamentals', 'oop', 'web')
     node_type: NodeTypeEnum = NodeTypeEnum.concept
     module_order: int | None = None
-    theory: dict[str, str] | None = None  # {"beginner": "...", "intermediate": "...", "advanced": "...", "cheatsheet": "..."}
+    theory: dict[str, Any] | None = None  # Theory content (can be nested)
 
     @field_validator('theory', mode='before')
     @classmethod
