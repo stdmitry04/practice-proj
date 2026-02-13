@@ -1,0 +1,6 @@
+{
+  "beginner": "## Metaclasses: Beginner Level\n\n### 1. What Are Metaclasses?\n\nMetaclasses are the \"classes of classes\" - they define how classes behave.\n\n### 2. type as a Metaclass  \n\nThe `type` built-in creates classes dynamically: `type(name, bases, dict)`\n\n### 3. Understanding Class Creation\n\nPython follows these steps when defining a class:\n1. Encounters the `class` statement\n2. Determines the metaclass (usually `type`)\n3. Executes the class body \n4. Calls the metaclass to create the class object\n\n### 4. Why Use Metaclasses?\n\nUsed for:\n- Automatically modifying classes\n- Validating class definitions  \n- Registering classes automatically\n- Implementing design patterns\n\n### 5. When NOT to Use Metaclasses\n\nConsider these alternatives first:\n- Class decorators\n- Base classes with `__init_subclass__`\n- Descriptors\n- Regular functions\n",
+  "intermediate": "Intermediate content placeholder",
+  "advanced": "Advanced content placeholder",
+  "cheatsheet": "Cheatsheet placeholder"
+}

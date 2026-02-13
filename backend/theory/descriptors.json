@@ -1,0 +1,6 @@
+{
+  "beginner": "## Descriptors: Beginner Level\n\n### 1. What Are Descriptors?\n\nDescriptors are a powerful Python feature that lets you customize what happens when you access an attribute. They're the mechanism behind properties, methods, and many other Python features.\n\n#### The Basic Idea\n\nWhen you access an attribute like `obj.attr`, Python doesn't just return a value. It can run custom code through a descriptor.\n\n```python\n# Normal attribute access\nclass Person:\n    def __init__(self, name):\n        self.name = name\n\np = Person(\"Alice\")\nprint(p.name)  # Simply returns \"Alice\"\n\n# With a descriptor - can add custom behavior\nclass ValidatedName:\n    def __get__(self, obj, objtype=None):\n        return obj._name\n    \n    def __set__(self, obj, value):\n        if not isinstance(value, str):\n            raise TypeError(\"Name must be a string\")\n        obj._name = value\n\nclass Person:\n    name = ValidatedName()  # name is a descriptor\n    \n    def __init__(self, name):\n        self.name = name  # Calls __set__\n\np = Person(\"Alice\")\nprint(p.name)  # Calls __get__\n# p.name = 123  # Raises TypeError\n```",
+  "intermediate": "Intermediate content",
+  "advanced": "Advanced content",
+  "cheatsheet": "Cheatsheet content"
+}

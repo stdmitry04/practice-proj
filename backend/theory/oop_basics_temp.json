@@ -1,0 +1,6 @@
+{
+  "beginner": "## OOP Basics: Beginner Level\n\n### What is Object-Oriented Programming?\n\nObject-Oriented Programming (OOP) is a programming paradigm that organizes code around **objects** rather than functions and logic. Objects combine data (attributes) and behavior (methods) into single units.\n\n#### Why Use OOP?\n\n1. **Organization**: Code is organized around real-world concepts\n2. **Reusability**: Classes can be reused across different programs\n3. **Maintainability**: Easier to modify and extend code\n4. **Abstraction**: Hide complex implementation details\n5. **Modularity**: Break programs into self-contained pieces\n\n```python\n# Without OOP - procedural approach\ndog_name = \"Buddy\"\ndog_age = 3\ndog_breed = \"Golden Retriever\"\n\ndef dog_bark(name):\n    print(f\"{name} says: Woof!\")\n\ndog_bark(dog_name)  # Buddy says: Woof!\n\n# With OOP - object-oriented approach\nclass Dog:\n    def __init__(self, name, age, breed):\n        self.name = name\n        self.age = age\n        self.breed = breed\n    \n    def bark(self):\n        print(f\"{self.name} says: Woof!\")\n\nmy_dog = Dog(\"Buddy\", 3, \"Golden Retriever\")\nmy_dog.bark()  # Buddy says: Woof!\n```\n",
+  "intermediate": "test",
+  "advanced": "test",
+  "cheatsheet": "test"
+}
