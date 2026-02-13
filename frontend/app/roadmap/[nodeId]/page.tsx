@@ -9,6 +9,8 @@ import { api } from '@/lib/api'
 import { RoadmapNodeWithProgress, RoadmapProblem } from '@/types/roadmap'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { cn } from '@/lib/utils'
 
 type MainTab = 'theory' | 'practice'
@@ -186,9 +188,35 @@ export default function NodeDetailPage() {
 
               {/* Theory content for selected level */}
               <div className="p-6">
-                <div className="prose max-w-none">
+                <div className="prose prose-invert max-w-none">
                   {node.theory[selectedLevel] ? (
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{node.theory[selectedLevel]}</ReactMarkdown>
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        code({ node, inline, className, children, ...props }: any) {
+                          const match = /language-(\w+)/.exec(className || '')
+                          const language = match ? match[1] : 'python'
+
+                          return !inline ? (
+                            <SyntaxHighlighter
+                              style={vscDarkPlus}
+                              language={language}
+                              PreTag="div"
+                              className="rounded-md"
+                              {...props}
+                            >
+                              {String(children).replace(/\n$/, '')}
+                            </SyntaxHighlighter>
+                          ) : (
+                            <code className={cn('bg-gray-800 px-1.5 py-0.5 rounded text-sm', className)} {...props}>
+                              {children}
+                            </code>
+                          )
+                        }
+                      }}
+                    >
+                      {node.theory[selectedLevel]}
+                    </ReactMarkdown>
                   ) : (
                     <div className="text-gray-400 text-center py-8">
                       <p>No {selectedLevel} content available yet.</p>
